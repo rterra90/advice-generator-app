@@ -3,27 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-
   <title>Frontend Mentor | Advice generator app</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution {
-      font-size: 11px;
-      text-align: center;
-    }
-
-    .attribution a {
-      color: hsl(228, 45%, 44%);
-    }
-  </style>
 </head>
 
 <body>
-
   <div id="page-wrapper">
     <div id="advice-wrapper">
       <p class="num">Advice <span></span></p>
@@ -33,21 +18,13 @@
       <button class="to-rotate" id="quote-btn" onclick=newQuote()><img class="to-rotate" src="/images/icon-dice.svg" alt=""></button>
     </div>
   </div>
-
   <script>
-
     function newQuote() {
-
-      // if (event.target.id) {
-
-      // }
-
       fetch('https://api.adviceslip.com/advice')
         .then(response => response.json())
         .then(advice => {
           document.querySelector('.quote').innerText = "“" + advice.slip.advice + "”";
           document.querySelector('.num span').innerText = "#" + advice.slip.id;
-
         });
       if (event.target.classList.contains('to-rotate')) {
         document.querySelector('#quote-btn').classList.add("rotate-btn");
@@ -55,21 +32,16 @@
           document.querySelector('#quote-btn').classList.remove("rotate-btn");
         }, 350);
       }
-
     }
-
-
     newQuote()
-
   </script>
-
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
-    Coded by <a href="#">Your Name Here</a>.
+    Coded by <a href="rterragd@hotmail.com">Rafael Terra</a>.
   </div>
 </body>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;800&display=swap');
 
   body {
     margin: 0;
@@ -99,8 +71,6 @@
     text-align: center;
     position: relative;
   }
-
-
 
   .num {
     text-transform: uppercase;
@@ -137,6 +107,16 @@
   #advice-wrapper button:hover {
     box-shadow: 0px 0px 30px hsl(150, 100%, 66%);
     transform: translateX(-50%) scale(.96);
+  }
+
+  .attribution {
+    font-size: 11px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .attribution a {
+    color: hsl(228, 45%, 44%);
   }
 
   @keyframes rotateBtn {
