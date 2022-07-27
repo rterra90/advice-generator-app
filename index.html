@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Advice generator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="page-wrapper">
+    <div id="advice-wrapper">
+      <p class="num">Advice <span></span></p>
+      <p class="quote"></p>
+      <img class="desktop" src="/images/pattern-divider-desktop.svg" alt="">
+      <img class="mobile" style="margin: 0 auto; position: absolute; left: 50%; transform: translateX(-50%)" src="/images/pattern-divider-mobile.svg" alt="">
+      <button class="to-rotate" id="quote-btn" onclick=newQuote()><img class="to-rotate" src="/images/icon-dice.svg" alt=""></button>
+    </div>
+  </div>
+
+  <script>
+
+    function newQuote() {
+
+      // if (event.target.id) {
+
+      // }
+
+      fetch('https://api.adviceslip.com/advice')
+        .then(response => response.json())
+        .then(advice => {
+          document.querySelector('.quote').innerText = "“" + advice.slip.advice + "”";
+          document.querySelector('.num span').innerText = "#" + advice.slip.id;
+
+        });
+      if (event.target.classList.contains('to-rotate')) {
+        document.querySelector('#quote-btn').classList.add("rotate-btn");
+        setTimeout(() => {
+          document.querySelector('#quote-btn').classList.remove("rotate-btn");
+        }, 350);
+      }
+
+    }
+
+
+    newQuote()
+
+  </script>
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;800&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  #page-wrapper {
+    background-color: #202632;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  #advice-wrapper {
+    width: 444px;
+    padding: 30px 50px 70px;
+    border-radius: 12px;
+    background-color: #313A49;
+    font-family: 'Manrope', sans-serif;
+    text-align: center;
+    position: relative;
+  }
+
+
+
+  .num {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: hsl(150, 100%, 66%);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .quote {
+    font-size: 28px;
+    font-weight: 800;
+    color: hsl(193, 38%, 86%)
+  }
+
+  #advice-wrapper button {
+    position: absolute;
+    inset: auto auto -30px 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    border: none;
+    background-color: hsl(150, 100%, 66%);
+    cursor: pointer;
+    transition: .25s;
+  }
+
+  .rotate-btn {
+    animation: .75s rotateBtn forwards;
+    animation-delay: .05s;
+  }
+
+  #advice-wrapper button:hover {
+    box-shadow: 0px 0px 30px hsl(150, 100%, 66%);
+    transform: translateX(-50%) scale(.96);
+  }
+
+  @keyframes rotateBtn {
+    100% {
+      transform: translateX(-50%) scale(.96) rotate(360deg);
+    }
+  }
+
+  @media(max-width: 575px) {
+    .mobile {
+      display: block;
+    }
+
+    .desktop {
+      display: none
+    }
+
+    #advice-wrapper {
+      width: calc(90% - 100px) !important;
+    }
+
+    .quote {
+      font-size: 24px;
+    }
+
+    .num {
+      font-size: 11px;
+    }
+  }
+
+  .attribution {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+</style>
+
+</html>
